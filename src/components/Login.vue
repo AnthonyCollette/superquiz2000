@@ -2,7 +2,7 @@
 	<div class="login">
 		<div class="container">
 			<h1>Se connecter</h1>
-			<Form />
+			<Form :isAuth="isAuth" />
 		</div>
 	</div>
 </template>
@@ -13,6 +13,11 @@ export default {
 	name: 'Login',
 	components: {
 		Form,
+	},
+	data() {
+		return {
+			isAuth: true,
+		}
 	},
 }
 </script>

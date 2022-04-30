@@ -1,6 +1,6 @@
 <template>
-	<form>
-		<div class="input-wrapper">
+	<form @submit.prevent="isAuth ? '' : register">
+		<div class="input-wrapper" v-if="!isAuth">
 			<label ref="labelName" for="name">Nom</label>
 			<input
 				ref="inputName"
@@ -8,6 +8,7 @@
 				name="name"
 				@focus="getFocus(this.$refs.labelName)"
 				@blur="loseFocus(this.$refs.labelName, this.$refs.inputName)"
+				v-model="name"
 			/>
 		</div>
 		<div class="input-wrapper">
@@ -18,18 +19,40 @@
 				name="email"
 				@focus="getFocus(this.$refs.labelEmail)"
 				@blur="loseFocus(this.$refs.labelEmail, this.$refs.inputEmail)"
+				v-model="email"
 			/>
 		</div>
-		<button class="btn yellow">S'inscrire</button>
+		<div class="input-wrapper">
+			<label ref="labelPassword" for="password">Mot de passe</label>
+			<input
+				ref="inputPassword"
+				type="password"
+				name="password"
+				@focus="getFocus(this.$refs.labelPassword)"
+				@blur="loseFocus(this.$refs.labelPassword, this.$refs.inputPassword)"
+				v-model="password"
+			/>
+		</div>
+
+		<input type="submit" class="btn yellow" />
 	</form>
 </template>
 
 <script>
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from './Firebase/firebaseConfig'
+
 export default {
 	name: 'Form',
+	props: {
+		isAuth: Boolean,
+	},
 	data() {
 		return {
 			hasFocus: false,
+			name: '',
+			email: '',
+			password: '',
 		}
 	},
 	methods: {
@@ -40,6 +63,19 @@ export default {
 			if (input.value === '') {
 				label.style.top = '50%'
 			}
+		},
+		register() {
+			createUserWithEmailAndPassword(auth, this.email, this.password)
+				.then((userCredential) => {
+					// Signed in
+					const user = userCredential.user
+					// ...
+				})
+				.catch((error) => {
+					const errorCode = error.code
+					const errorMessage = error.message
+					// ..
+				})
 		},
 	},
 }
