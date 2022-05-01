@@ -29,8 +29,17 @@
 			class="btn yellow"
 			@click="nextQuestion"
 			:disabled="disabled ? '' : disabled"
+			v-if="!lastQuestion"
 		>
 			Question suivante
+		</button>
+		<button
+			class="btn yellow"
+			@click="finishQuiz"
+			:disabled="disabled ? '' : disabled"
+			v-if="lastQuestion"
+		>
+			Voir mes résultats
 		</button>
 	</div>
 </template>
@@ -40,6 +49,7 @@ export default {
 	name: 'Question',
 	props: {
 		question: Object,
+		lastQuestion: Boolean,
 	},
 	data() {
 		return {
@@ -64,14 +74,10 @@ export default {
 			setTimeout(() => (this.disabled = false), 2000)
 		},
 		nextQuestion() {
-			const refs = ['un', 'deux', 'trois', 'quatre']
-			refs.map((ref) => {
-				if (this.$refs[ref]) {
-					console.log(this.$refs[ref])
-				}
-			})
-
 			this.$emit('nextQuestion')
+		},
+		finishQuiz() {
+			this.$router.push('/results')
 		},
 	},
 	mounted() {
@@ -102,6 +108,7 @@ export default {
 		background-color: green;
 	}
 }
+
 .question {
 	margin-top: 50px;
 	display: flex;
@@ -109,6 +116,16 @@ export default {
 	h2 {
 		font-size: $font-xxl;
 		color: $color-004;
+	}
+	a {
+		color: $color-008;
+		&:hover {
+			background-color: $color-008;
+			color: $color-004;
+		}
+		&:disabled {
+			color: rgba($color: $color-001, $alpha: 0.5);
+		}
 	}
 	.reponses {
 		display: flex;

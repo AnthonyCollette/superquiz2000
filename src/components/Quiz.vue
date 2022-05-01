@@ -13,6 +13,7 @@
 					:question="currentQuestion"
 					@nextQuestion="nextQuestion"
 					:key="idOfCurrentQuestion"
+					:lastQuestion="lastQuestion"
 				/>
 			</transition>
 		</div>
@@ -36,12 +37,16 @@ export default {
 		return {
 			idOfCurrentQuestion: 0,
 			currentQuestion: {},
+			lastQuestion: false,
 		}
 	},
 	methods: {
 		nextQuestion() {
 			this.idOfCurrentQuestion += 1
 			this.currentQuestion = this.questions[this.idOfCurrentQuestion]
+			if (this.currentQuestion.number === this.questions.length) {
+				this.lastQuestion = true
+			}
 		},
 	},
 	computed: mapState({
