@@ -54,6 +54,7 @@ export default {
 			if (value) {
 				this.$refs[id][0].classList.add('correct')
 				this.$refs[id][0].style.backgroundColor = 'green'
+				this.$store.commit('goodAnswer')
 			} else {
 				this.$refs[id][0].classList.add('incorrect')
 				this.$refs[correctAnswer][0].classList.add('correct')
@@ -65,14 +66,6 @@ export default {
 		nextQuestion() {
 			const refs = ['un', 'deux', 'trois', 'quatre']
 			refs.map((ref) => {
-				// if (this.$refs[ref] && this.$refs[ref].classList.contains('correct')) {
-				// 	this.$refs[ref].classList.remove('correct')
-				// } else if (
-				// 	this.$refs[ref] &&
-				// 	this.$refs[ref].classList.contains('incorrect')
-				// ) {
-				// 	this.$refs[ref].classList.remove('correct')
-				// }
 				if (this.$refs[ref]) {
 					console.log(this.$refs[ref])
 				}

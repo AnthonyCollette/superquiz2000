@@ -50,9 +50,46 @@ export default createStore({
 				commentary:
 					'Vous savez ce que font deux brosses à dents le 14 juillet ?',
 			},
+			{
+				enonce:
+					"Dans Among Us, si Meta n'est pas une personne de confiance, qui l'est encore moins ?",
+				reponses: [
+					{
+						text: 'Sido',
+						good: true,
+						id: 'un',
+					},
+					{
+						text: 'Youma',
+						good: false,
+						id: 'deux',
+					},
+					{
+						text: 'Neikko',
+						good: false,
+						id: 'trois',
+					},
+					{
+						text: 'Lala',
+						good: false,
+						id: 'quatre',
+					},
+				],
+				number: 3,
+				commentary: "J'l'avais dit de voter Sido...",
+			},
 		],
+		score: 0,
 	},
-	mutations: {},
-	actions: {},
+	mutations: {
+		goodAnswer: (state) => {
+			return state.score++
+		},
+	},
+	actions: {
+		goodAnswer({ commit }) {
+			commit('goodAnswer')
+		},
+	},
 	modules: {},
 })

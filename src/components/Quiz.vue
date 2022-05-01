@@ -2,6 +2,7 @@
 	<div class="quiz">
 		<div class="container">
 			<Header />
+			<Score />
 			<transition
 				name="custom-classes-transition"
 				enter-active-class="slide-in"
@@ -22,12 +23,14 @@
 import { mapState } from 'vuex'
 import Question from './Question'
 import Header from './Header'
+import Score from './Score.vue'
 
 export default {
 	name: 'Quiz',
 	components: {
 		Question,
 		Header,
+		Score,
 	},
 	data() {
 		return {
