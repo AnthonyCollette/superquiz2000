@@ -82,6 +82,55 @@ export default createStore({
 				commentary: "J'l'avais dit de voter Sido...",
 				difficulty: 2,
 			},
+			{
+				enonce:
+					'Dans une partie de Green Hell, qui a pour habitude de voir ses plaies se nécroser ?',
+				reponses: [
+					{
+						text: 'Amyel',
+						good: true,
+						id: 'un',
+					},
+					{
+						text: 'Lala',
+						good: false,
+						id: 'deux',
+					},
+					{
+						text: 'Zerky',
+						good: false,
+						id: 'trois',
+					},
+					{
+						text: 'Youma',
+						good: false,
+						id: 'quatre',
+					},
+				],
+				number: 4,
+				commentary:
+					'Quand je le vois mettre les asticots sur ses plaies, je le soupçonne de prendre du plaisir...',
+				difficulty: 3,
+			},
+			{
+				enonce:
+					"Dans une partie de Phasmophobia, Neikko a-t-il un 'gameplay Camion' ?",
+				reponses: [
+					{
+						text: 'Oui',
+						good: true,
+						id: 'un',
+					},
+					{
+						text: 'Non',
+						good: false,
+						id: 'deux',
+					},
+				],
+				number: 5,
+				commentary: 'Il est le seul à ne pas le savoir !',
+				difficulty: 1,
+			},
 		],
 		score: 0,
 	},

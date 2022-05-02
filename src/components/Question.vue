@@ -1,55 +1,59 @@
 <template>
 	<div class="question">
-		<h2>Question n°{{ question.number }}</h2>
-		<p>{{ question.enonce }}</p>
-		<div class="reponses">
-			<button
-				:ref="reponse.id"
-				class="reponse"
-				v-for="(reponse, index) in question.reponses"
-				:key="index"
-				@click="checkAnswer(reponse.good, reponse.id)"
+		<div class="container">
+			<h2>Question n°{{ question.number }}/{{ totalQuestions }}</h2>
+			<p>{{ question.enonce }}</p>
+			<div class="reponses">
+				<button
+					:ref="reponse.id"
+					class="reponse"
+					v-for="(reponse, index) in question.reponses"
+					:key="index"
+					@click="checkAnswer(reponse.good, reponse.id)"
+				>
+					{{ reponse.text }}
+				</button>
+			</div>
+			<div class="difficulty">
+				<div class="easy" v-if="question.difficulty === 1"></div>
+				<div class="medium" v-if="question.difficulty === 2"></div>
+				<div class="hard" v-if="question.difficulty === 3"></div>
+			</div>
+			<transition
+				name="custom-classes-transition"
+				enter-active-class="slide-in"
+				leave-active-class="slide-out"
+				mode="out-in"
 			>
-				{{ reponse.text }}
+				<div class="comment" v-if="answered">
+					<p>
+						{{ question.commentary }}
+					</p>
+				</div>
+			</transition>
+			<button
+				class="btn yellow"
+				@click="nextQuestion"
+				:disabled="disabled ? '' : disabled"
+				v-if="!lastQuestion"
+			>
+				Question suivante
+			</button>
+			<button
+				class="btn yellow"
+				@click="finishQuiz"
+				:disabled="disabled ? '' : disabled"
+				v-if="lastQuestion"
+			>
+				Voir mes résultats
 			</button>
 		</div>
-		<div class="difficulty">
-			<div class="easy" v-if="question.difficulty === 1"></div>
-			<div class="medium" v-if="question.difficulty === 2"></div>
-			<div class="hard" v-if="question.difficulty === 3"></div>
-		</div>
-		<transition
-			name="custom-classes-transition"
-			enter-active-class="slide-in"
-			leave-active-class="slide-out"
-			mode="out-in"
-		>
-			<div class="comment" v-if="answered">
-				<p>
-					{{ question.commentary }}
-				</p>
-			</div>
-		</transition>
-		<button
-			class="btn yellow"
-			@click="nextQuestion"
-			:disabled="disabled ? '' : disabled"
-			v-if="!lastQuestion"
-		>
-			Question suivante
-		</button>
-		<button
-			class="btn yellow"
-			@click="finishQuiz"
-			:disabled="disabled ? '' : disabled"
-			v-if="lastQuestion"
-		>
-			Voir mes résultats
-		</button>
 	</div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
 	name: 'Question',
 	props: {
@@ -87,6 +91,9 @@ export default {
 			this.$router.push('/results')
 		},
 	},
+	computed: mapState({
+		totalQuestions: (state) => state.questions.length,
+	}),
 	mounted() {
 		this.goodAnswer = this.question.reponses.filter((reponse) => reponse.good)
 	},
@@ -118,8 +125,14 @@ export default {
 
 .question {
 	margin-top: 50px;
-	display: flex;
-	flex-direction: column;
+	.container {
+		display: flex;
+		flex-direction: column;
+		margin: 20px auto;
+		@include min($md) {
+			margin: 50px auto;
+		}
+	}
 	h2 {
 		font-size: $font-xxl;
 		color: $color-004;
@@ -137,11 +150,14 @@ export default {
 	.reponses {
 		display: flex;
 		flex-wrap: wrap;
-		width: 1000px;
+		width: 100%;
 		justify-content: center;
-		margin: 50px auto;
+		margin: 50px auto 20px;
+		@include min($xl) {
+			width: 1000px;
+		}
 		button {
-			width: 400px;
+			width: 100%;
 			background-color: $color-001;
 			display: flex;
 			align-items: center;
@@ -153,6 +169,9 @@ export default {
 			font-family: $font-001;
 			font-size: $font-lg;
 			color: $color-003;
+			@include min($md) {
+				width: 400px;
+			}
 		}
 		.correct {
 			animation-name: flashCorrect;
@@ -193,7 +212,7 @@ export default {
 	height: 10px;
 	background-color: $color-001;
 	border-radius: 10px;
-	margin: 0 auto;
+	margin: 0 auto 50px;
 	overflow: hidden;
 	position: relative;
 	> div {

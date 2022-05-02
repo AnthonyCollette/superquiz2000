@@ -45,8 +45,11 @@ button {
 	cursor: pointer;
 }
 .container {
-	width: 1400px;
 	margin: 100px auto;
+	width: 90%;
+	@include min($xxl) {
+		width: 1200px;
+	}
 }
 li {
 	list-style: none;
@@ -91,8 +94,7 @@ p {
 	animation-duration: 0.5s;
 }
 
-//BUTTONS
-
+//BUTTONS START
 .light-blue {
 	background-color: $color-007;
 	color: $color-003;
@@ -122,4 +124,5 @@ p {
 	justify-content: center;
 	cursor: pointer;
 }
+//BUTTONS END
 </style>

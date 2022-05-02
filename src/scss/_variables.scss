@@ -1,5 +1,4 @@
 // COLORS
-
 $color-001: #ffffff;
 $color-002: #001219;
 $color-003: #0a9396;
@@ -13,14 +12,19 @@ $color-010: #bb3e03;
 $color-011: #ae2012;
 
 // FONTS
-
 $font-001: 'KyooshiGothic';
 
 // FONT-SIZES
-
 $font-sm: 0.75rem;
 $font-md: 1rem;
 $font-lg: 1.25rem;
 $font-xl: 1.75rem;
 $font-xxl: 2rem;
 $font-xxxl: 3.5rem;
+
+// SCREEN SIZES
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+$xxl: 1400px;

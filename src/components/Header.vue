@@ -28,14 +28,27 @@ export default {
 }
 .logo-wrapper {
 	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 .star {
-	width: 250px;
+	width: 30%;
 	position: absolute;
-	right: 15px;
-	top: -10px;
+	right: 10%;
+	top: 5%;
 	z-index: -1;
 	animation: rotateStar 5s infinite linear;
+	@include min($sm) {
+		width: 25%;
+		right: 22%;
+		top: -2%;
+	}
+	@include min($md) {
+		width: 250px;
+		right: 15px;
+		top: -10px;
+	}
 }
 a {
 	color: $color-008;
@@ -43,7 +56,13 @@ a {
 	text-align: center;
 }
 img {
-	width: 600px;
+	width: 100%;
+	@include min($sm) {
+		width: 60%;
+	}
+	@include min($md) {
+		width: 600px;
+	}
 }
 .slogan {
 	font-style: italic;
