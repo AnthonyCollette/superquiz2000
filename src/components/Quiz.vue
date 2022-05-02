@@ -53,6 +53,7 @@ export default {
 		questions: (state) => state.questions,
 	}),
 	created() {
+		this.$store.commit('resetScore')
 		this.currentQuestion = this.questions[this.idOfCurrentQuestion]
 	},
 }

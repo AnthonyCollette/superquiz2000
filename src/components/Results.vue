@@ -4,9 +4,15 @@
 			<Header />
 			<h1>Vos résultats</h1>
 			<div class="result">
-				<p>
-					Vous avez répondu à un nombre de {{ score }} questions sur
-					{{ totalQuestions }}, ce qui vous octroie {{ score }} points !
+				<p>Vous avez obtenu un total de {{ score }} points !</p>
+				<p v-if="score < totalQuestions / 2">
+					Vous devriez passer plus de temps à nos soirées...
+				</p>
+				<p v-if="score > totalQuestions / 2 && score !== totalQuestions">
+					Bien joué ! Vous connaissez bien votre sujet !
+				</p>
+				<p v-if="score === totalQuestions">
+					Bravo ! Vous ne ratez aucune sortie !
 				</p>
 			</div>
 		</div>

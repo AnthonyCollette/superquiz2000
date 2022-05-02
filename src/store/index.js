@@ -31,6 +31,7 @@ export default createStore({
 				number: 1,
 				commentary:
 					"Le seul moyen de lui échapper, c'est d'être en couple avec lui !",
+				difficulty: 1,
 			},
 			{
 				enonce: "Dans une partie d'Among Us, faut-il faire confiance à Meta ?",
@@ -49,7 +50,9 @@ export default createStore({
 				number: 2,
 				commentary:
 					'Vous savez ce que font deux brosses à dents le 14 juillet ?',
+				difficulty: 1,
 			},
+
 			{
 				enonce:
 					"Dans Among Us, si Meta n'est pas une personne de confiance, qui l'est encore moins ?",
@@ -77,18 +80,25 @@ export default createStore({
 				],
 				number: 3,
 				commentary: "J'l'avais dit de voter Sido...",
+				difficulty: 2,
 			},
 		],
 		score: 0,
 	},
 	mutations: {
-		goodAnswer: (state) => {
-			return state.score++
+		goodAnswer: (state, payload) => {
+			return (state.score = state.score + 1 * payload.difficulty)
+		},
+		resetScore: (state) => {
+			return (state.score = 0)
 		},
 	},
 	actions: {
 		goodAnswer({ commit }) {
 			commit('goodAnswer')
+		},
+		resetScore({ commit }) {
+			commit('resetScore')
 		},
 	},
 	modules: {},

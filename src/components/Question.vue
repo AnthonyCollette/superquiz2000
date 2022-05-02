@@ -13,6 +13,11 @@
 				{{ reponse.text }}
 			</button>
 		</div>
+		<div class="difficulty">
+			<div class="easy" v-if="question.difficulty === 1"></div>
+			<div class="medium" v-if="question.difficulty === 2"></div>
+			<div class="hard" v-if="question.difficulty === 3"></div>
+		</div>
 		<transition
 			name="custom-classes-transition"
 			enter-active-class="slide-in"
@@ -64,7 +69,9 @@ export default {
 			if (value) {
 				this.$refs[id][0].classList.add('correct')
 				this.$refs[id][0].style.backgroundColor = 'green'
-				this.$store.commit('goodAnswer')
+				this.$store.commit('goodAnswer', {
+					difficulty: this.question.difficulty,
+				})
 			} else {
 				this.$refs[id][0].classList.add('incorrect')
 				this.$refs[correctAnswer][0].classList.add('correct')
@@ -178,6 +185,36 @@ export default {
 	p {
 		color: $color-009;
 		font-size: $font-xl;
+	}
+}
+
+.difficulty {
+	width: 200px;
+	height: 10px;
+	background-color: $color-001;
+	border-radius: 10px;
+	margin: 0 auto;
+	overflow: hidden;
+	position: relative;
+	> div {
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	.easy {
+		width: 33%;
+		background-color: green;
+		height: 100%;
+	}
+	.medium {
+		width: 66%;
+		background-color: $color-009;
+		height: 100%;
+	}
+	.hard {
+		width: 100%;
+		background-color: $color-011;
+		height: 100%;
 	}
 }
 </style>
